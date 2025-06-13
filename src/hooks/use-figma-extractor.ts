@@ -1,6 +1,7 @@
 
 import { useState, useCallback } from 'react';
 import { FigmaDesignData } from '../types/figma';
+import { FigmaAPI } from '@/lib/figma-api';
 
 interface FigmaExportOptions {
   extractDesignTokens: boolean;
@@ -72,83 +73,43 @@ export const useFigmaExtractor = ({ showToast }: UseFigmaExtractorProps) => {
     setIsExtracting(true);
 
     try {
-      // Simulate API call with enhanced mock data
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const figmaAPI = new FigmaAPI(token);
+      
+      // Get the Figma file data
+      const figmaFile = await figmaAPI.getFile(parsedUrl.fileId);
+      
+      // Extract design tokens
+      const designTokens = figmaAPI.extractDesignTokens(figmaFile);
+      
+      // Convert to components
+      const components = figmaAPI.convertToComponents(figmaFile);
 
-      const mockData: FigmaDesignData = {
+      const extractedData: FigmaDesignData = {
         id: parsedUrl.fileId,
-        name: 'Exported Design',
-        components: [
-          {
-            id: 'comp-1',
-            name: 'PrimaryButton',
-            type: 'COMPONENT',
-            styles: {
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '12px 24px',
-              backgroundColor: '#6366f1',
-              color: 'white',
-              borderRadius: '8px',
-              fontWeight: '500',
-              cursor: 'pointer',
-              transition: 'all 0.2s'
-            },
-            children: []
-          },
-          {
-            id: 'comp-2',
-            name: 'InfoCard',
-            type: 'FRAME',
-            styles: {
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
-              padding: '24px',
-              backgroundColor: 'white',
-              borderRadius: '12px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-              border: '1px solid #e5e7eb'
-            },
-            children: []
-          }
-        ],
-        designTokens: {
-          colors: {
-            primary: '#6366f1',
-            secondary: '#64748b',
-            background: '#ffffff',
-            surface: '#f8fafc',
-            success: '#10b981',
-            warning: '#f59e0b',
-            danger: '#ef4444'
-          },
-          typography: {
-            heading: { fontSize: '24px', fontWeight: '600', lineHeight: '1.2' },
-            body: { fontSize: '16px', fontWeight: '400', lineHeight: '1.5' },
-            caption: { fontSize: '14px', fontWeight: '400', lineHeight: '1.4' }
-          },
-          spacing: {
-            xs: '4px',
-            sm: '8px',
-            md: '16px',
-            lg: '24px',
-            xl: '32px',
-            '2xl': '48px'
-          }
-        },
+        name: figmaFile.name,
+        components: components,
+        designTokens: designTokens,
         metadata: {
-          version: '2.0',
-          lastModified: new Date().toISOString(),
-          author: 'Figma User'
-        }
+          version: figmaFile.version,
+          lastModified: figmaFile.lastModified,
+          author: 'Figma API',
+        },
       };
 
-      setExtractedData(mockData);
-      showToast('Sikeres exportálás', `${mockData.components.length} komponens exportálva`, 'success');
+      setExtractedData(extractedData);
+      showToast('Success', `Successfully extracted "${figmaFile.name}" with ${components.length} components`, 'success');
     } catch (error) {
-      showToast('Exportálási hiba', 'Nem sikerült exportálni a design-t', 'error');
+      console.error('Error extracting Figma design:', error);
+      
+      if (error instanceof Error && error.message.includes('401')) {
+        showToast('Error', 'Invalid Figma token. Please check your access token.', 'error');
+      } else if (error instanceof Error && error.message.includes('403')) {
+        showToast('Error', 'Access denied. Please ensure you have permission to access this file.', 'error');
+      } else if (error instanceof Error && error.message.includes('404')) {
+        showToast('Error', 'File not found. Please check the Figma URL.', 'error');
+      } else {
+        showToast('Error', 'Failed to extract Figma design. Please check your URL and token.', 'error');
+      }
     } finally {
       setIsExtracting(false);
     }

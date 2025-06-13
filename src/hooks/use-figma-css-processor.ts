@@ -8,6 +8,7 @@ import {
   convertCssToTailwind
 } from '../utils/figma-css-parser';
 import { generateReactComponentFromCss } from '../utils/code-generator';
+import { postcssProcessor } from '@/lib/postcss-processor';
 
 interface UseFigmaCssProcessorProps {
   showToast: (title: string, description: string, type: 'success' | 'error' | 'info') => void;
