@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Input, Button, Switch } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Check, X, Clipboard, Download } from 'lucide-react';
 
 interface ExportTabProps {
   figmaUrl: string;
@@ -36,11 +36,11 @@ export const ExportTab: React.FC<ExportTabProps> = ({
           placeholder="https://www.figma.com/design/fAV7MQVmdjb0TYuUkpvy4V/Untitled?node-id=0-17..."
           value={figmaUrl}
           onChange={(e) => setFigmaUrl(e.target.value)}
-          color={figmaUrl && (urlValidation.isValid ? "success" : "danger")}
+          color={figmaUrl && urlValidation.isValid ? "success" : figmaUrl ? "danger" : "default"}
         />
         {figmaUrl && (
           <div className={`text-xs flex items-center gap-1 ${urlValidation.isValid ? 'text-success' : 'text-danger'}`}>
-            <Icon icon={urlValidation.isValid ? "lucide:check" : "lucide:x"} width={14} />
+            {urlValidation.isValid ? <Check width={14} /> : <X width={14} />}
             {urlValidation.message}
           </div>
         )}
@@ -54,7 +54,7 @@ export const ExportTab: React.FC<ExportTabProps> = ({
             variant="light"
             onPress={loadDemoUrl}
             className="mt-2 h-7 px-2"
-            startContent={<Icon icon="lucide:clipboard" width={14} />}
+            startContent={<Clipboard width={14} />}
           >
             Demo URL betöltése
           </Button>
@@ -120,7 +120,7 @@ export const ExportTab: React.FC<ExportTabProps> = ({
         isDisabled={isExtracting || !urlValidation.isValid || !figmaToken}
         className="w-full"
         color="primary"
-        startContent={isExtracting ? <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div> : <Icon icon="lucide:download" width={16} />}
+        startContent={isExtracting ? <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div> : <Download width={16} />}
       >
         {isExtracting ? "Exportálás..." : "Design exportálása Figma-ból"}
       </Button>

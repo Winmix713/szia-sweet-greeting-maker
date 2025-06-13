@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Badge } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Box } from 'lucide-react';
 import { FigmaComponentCard } from './FigmaComponentCard';
 
 interface ComponentsTabProps {
@@ -34,7 +34,7 @@ export const ComponentsTab: React.FC<ComponentsTabProps> = ({
         </div>
       ) : (
         <div className="text-center py-8 text-default-500">
-          <Icon icon="lucide:box" className="mx-auto mb-2 w-10 h-10 opacity-50" />
+          <Box className="mx-auto mb-2 w-10 h-10 opacity-50" />
           <p>Még nincsenek exportált komponensek</p>
           <p className="text-sm">Exportálj design-okat a Figma tab-ban</p>
         </div>

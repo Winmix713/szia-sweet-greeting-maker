@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
 
 interface ToastNotificationProps {
   toastMessage: {
@@ -22,14 +22,9 @@ export const ToastNotification: React.FC<ToastNotificationProps> = ({
       toastMessage.type === "error" ? "bg-danger text-white" :
       "bg-foreground text-background"
     }`}>
-      <Icon 
-        icon={
-          toastMessage.type === "success" ? "lucide:check-circle" :
-          toastMessage.type === "error" ? "lucide:alert-circle" :
-          "lucide:info"
-        } 
-        width={20} 
-      />
+      {toastMessage.type === "success" ? <CheckCircle width={20} /> :
+       toastMessage.type === "error" ? <AlertCircle width={20} /> :
+       <Info width={20} />}
       <div>
         <h4 className="font-medium text-sm">{toastMessage.title}</h4>
         <p className="text-xs opacity-90">{toastMessage.description}</p>
@@ -41,7 +36,7 @@ export const ToastNotification: React.FC<ToastNotificationProps> = ({
         className="ml-auto text-white/80 hover:text-white"
         onPress={onClose}
       >
-        <Icon icon="lucide:x" width={14} />
+        <X width={14} />
       </Button>
     </div>
   );

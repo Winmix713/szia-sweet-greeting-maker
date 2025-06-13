@@ -28,11 +28,35 @@ const ${componentName} = ({ children, className }: ${componentName}Props) => {
 
 export default ${componentName};`;
 
+  const originalCss = Object.entries(declarations)
+    .map(([prop, value]) => `  ${prop}: ${value};`)
+    .join('\n');
+
+  const styledCss = `.${componentName.toLowerCase()} {\n${originalCss}\n}`;
+
+  const htmlStructure = `<div class="${classNames}">
+  <!-- Component content -->
+</div>`;
+
   return {
     name: componentName,
     code: componentCode,
     props: propsInterface,
-    styles: classNames
+    styles: classNames,
+    originalCss: originalCss,
+    reactCode: componentCode,
+    styledCss: styledCss,
+    htmlStructure: htmlStructure,
+    tailwindClasses: {
+      main: classNames,
+      customStyles: tailwindClasses.filter(cls => cls.includes('[') && cls.includes(']'))
+    },
+    stats: {
+      cssRules: Object.keys(declarations).length,
+      responsiveBreakpoints: tailwindClasses.filter(cls => cls.includes('sm:') || cls.includes('md:') || cls.includes('lg:') || cls.includes('xl:')).length,
+      animations: tailwindClasses.filter(cls => cls.includes('animate-')).length,
+      customProperties: tailwindClasses.filter(cls => cls.includes('[') && cls.includes(']')).length
+    }
   };
 };
 

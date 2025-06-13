@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Icon } from '@iconify/react';
+import { Palette } from 'lucide-react';
 import { DesignTokensDisplay } from './DesignTokensDisplay';
 
 interface DesignTokensTabProps {
@@ -24,7 +24,7 @@ export const DesignTokensTab: React.FC<DesignTokensTabProps> = ({
         />
       ) : (
         <div className="text-center py-8 text-default-500">
-          <Icon icon="lucide:palette" className="mx-auto mb-2 w-10 h-10 opacity-50" />
+          <Palette className="mx-auto mb-2 w-10 h-10 opacity-50" />
           <p>Még nincsenek design tokenek</p>
           <p className="text-sm">Exportálj design-okat a Figma tab-ban</p>
         </div>

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardBody, CardFooter, Button, Badge, Chip } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Box, Download } from 'lucide-react';
 import { FigmaComponent } from '../../types/figma';
 
 interface FigmaComponentCardProps {
@@ -25,7 +25,7 @@ export const FigmaComponentCard: React.FC<FigmaComponentCardProps> = ({ componen
               </Chip>
             </div>
           </div>
-          <Icon icon="lucide:box" className="w-8 h-8 text-default-400" />
+          <Box className="w-8 h-8 text-default-400" />
         </div>
 
         <div className="space-y-2">
@@ -51,7 +51,7 @@ export const FigmaComponentCard: React.FC<FigmaComponentCardProps> = ({ componen
           color="primary"
           variant="flat"
           onPress={() => onSelect(component)}
-          startContent={<Icon icon="lucide:download" width={16} />}
+          startContent={<Download width={16} />}
           className="w-full"
         >
           Komponens betöltése

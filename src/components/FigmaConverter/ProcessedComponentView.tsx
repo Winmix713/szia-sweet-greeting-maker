@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardBody, CardHeader, Button, Tabs, Tab, Chip } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Copy, Download } from 'lucide-react';
 import { ProcessedComponent } from '../../types/figma';
 
 interface ProcessedComponentViewProps {
@@ -36,7 +36,7 @@ export const ProcessedComponentView: React.FC<ProcessedComponentViewProps> = ({
           <Button
             size="sm"
             variant="flat"
-            startContent={<Icon icon="lucide:copy" width={16} />}
+            startContent={<Copy width={16} />}
             onPress={() => onCopy(component.reactCode)}
           >
             Másolás
@@ -44,7 +44,7 @@ export const ProcessedComponentView: React.FC<ProcessedComponentViewProps> = ({
           <Button
             size="sm"
             color="primary"
-            startContent={<Icon icon="lucide:download" width={16} />}
+            startContent={<Download width={16} />}
             onPress={() => onDownload(component.reactCode, `${component.name}.tsx`)}
           >
             Letöltés

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { CardFooter, Button } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { HelpCircle, Settings } from 'lucide-react';
 
 export const FigmaConverterFooter: React.FC = () => {
   return (
@@ -13,14 +13,14 @@ export const FigmaConverterFooter: React.FC = () => {
         <Button
           size="sm"
           variant="light"
-          startContent={<Icon icon="lucide:help-circle" width={14} />}
+          startContent={<HelpCircle width={14} />}
         >
           Súgó
         </Button>
         <Button
           size="sm"
           color="primary"
-          startContent={<Icon icon="lucide:settings" width={14} />}
+          startContent={<Settings width={14} />}
         >
           Beállítások
         </Button>

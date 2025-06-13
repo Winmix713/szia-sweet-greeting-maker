@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Card, CardBody, CardHeader, Button, Tabs, Tab } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Copy } from 'lucide-react';
 import { DesignTokens } from '../../types/figma';
 
 interface DesignTokensDisplayProps {
@@ -22,7 +22,7 @@ export const DesignTokensDisplay: React.FC<DesignTokensDisplayProps> = ({
         <Button
           size="sm"
           variant="flat"
-          startContent={<Icon icon="lucide:copy" width={16} />}
+          startContent={<Copy width={16} />}
           onPress={() => onCopy(generatedTokensCode)}
         >
           Kód másolása

@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Button, Badge, Textarea, Switch } from '@heroui/react';
-import { Icon } from '@iconify/react';
+import { Palette, Zap } from 'lucide-react';
 import { ProcessedComponentView } from './ProcessedComponentView';
 
 interface CssImportTabProps {
@@ -29,7 +28,7 @@ export const CssImportTab: React.FC<CssImportTabProps> = ({
     <div className="space-y-4 py-4">
       <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg border">
         <h3 className="font-semibold text-lg mb-2 flex items-center gap-2">
-          <Icon icon="lucide:palette" className="text-purple-500" />
+          <Palette className="text-purple-500" />
           Full CSS Import
           <Badge color="secondary" size="sm">ADVANCED</Badge>
         </h3>
@@ -49,7 +48,7 @@ export const CssImportTab: React.FC<CssImportTabProps> = ({
             onPress={loadDemoCss}
             className="mt-2 h-7 px-2"
             color="secondary"
-            startContent={<Icon icon="lucide:palette" width={14} />}
+            startContent={<Palette width={14} />}
           >
             Demo CSS betöltése (Figma button)
           </Button>
@@ -141,7 +140,7 @@ export const CssImportTab: React.FC<CssImportTabProps> = ({
         isDisabled={!figmaCssCode.trim() || isProcessingCss}
         className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
         size="lg"
-        startContent={isProcessingCss ? <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div> : <Icon icon="lucide:zap" width={16} />}
+        startContent={isProcessingCss ? <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div> : <Zap width={16} />}
       >
         {isProcessingCss ? "CSS feldolgozása..." : "CSS konvertálása React komponenssé"}
       </Button>
